@@ -14,9 +14,24 @@ public class DBContexto : DbContext
     
     public DbSet<Administrador> Administradores { get; set; } = default!;
 
+    public DbSet<Veiculo> Veiculos { get; set; } = default!;
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Administrador>().HasData(
+            new Administrador
+            {
+                Id = 1,
+                Email = "adminstrador@teste.com",
+                Senha = "123456",
+                Perfio = "Adm"
+            }
+        );
+    }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        if(!optionsBuilder.IsConfigured)
+        if (!optionsBuilder.IsConfigured)
         {
             var stringConexao = _configurationAppSettings.GetConnectionString("mysql");
             if (!string.IsNullOrEmpty(stringConexao))
@@ -24,8 +39,8 @@ public class DBContexto : DbContext
                 optionsBuilder.UseMySql(stringConexao, ServerVersion.AutoDetect(stringConexao));
             }
         }
-        
 
-        
+
+
     } 
 }

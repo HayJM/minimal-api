@@ -1,8 +1,17 @@
 using minimal_api.InfraEstrutura.DB;
 using minimal_api.Dominio.DTOs;
+using minimal_api.Dominio.ModelViews;
 using Microsoft.EntityFrameworkCore;
+using System.Numerics;
+using minimal_api.Dominio.Servicos;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddScoped<IAdministradorServicos, AdministradorServicos>();
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<DBContexto>(opitions =>
 {
@@ -15,10 +24,10 @@ builder.Services.AddDbContext<DBContexto>(opitions =>
 var app = builder.Build();
 
 
-app.MapGet("/", () => "Hello World!");
+app.MapGet("/", () =>  Results.Json(new Home()));
 
-app.MapPost ("/login",(minimal_api.Dominio.DTOs.LoginDTD loginDTD) =>{
-    if (loginDTD.Email == "adm@teste.com" && loginDTD.Senha == "123456")
+app.MapPost ("/login",([FromBody]LoginDTD loginDTD, IAdministradorServicos administradorServicos) =>{
+    if (administradorServicos.Login(loginDTD)!= null)
     {
         return Results.Ok("Login com successo");
     }
@@ -27,6 +36,9 @@ app.MapPost ("/login",(minimal_api.Dominio.DTOs.LoginDTD loginDTD) =>{
         return Results.Unauthorized();
     }
 });
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.Run();
 

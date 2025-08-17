@@ -5,7 +5,7 @@ namespace minimal_api.Dominio.Servicos
 {
     public interface IVeiculosServicos
     {
-        List<Veiculo> Todos(int page = 1, string? Nome = null, string? Marca = null);
+        List<Veiculo> Todos(int? page = 1, string? Nome = null, string? Marca = null);
 
         Veiculo? BuscaPorId(int id);
 

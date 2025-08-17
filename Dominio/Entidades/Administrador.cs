@@ -23,7 +23,7 @@ namespace minimal_api.Dominio.Entidades
         
         [Required]
         [StringLength(10)]
-        public string Perfio { get; set; } = default!;
+        public string Perfil { get; set; } = default!;
         
 
     }

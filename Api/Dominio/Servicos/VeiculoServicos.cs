@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using minimal_api.Dominio.DTOs;
 using minimal_api.Dominio.Entidades;
+using minimal_api.Dominio.Interfaces;
 using minimal_api.InfraEstrutura.DB;
 
 namespace minimal_api.Dominio.Servicos

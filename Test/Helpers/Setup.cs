@@ -38,7 +38,7 @@ namespace Test.Helpers
                 builder.ConfigureServices(static services =>
                 {
                     //services.AddScoped<IBancoDeDadosServico<Cliente>, ClientesServicosMock>();
-                    services.AddScoped<IAdministradorServicos, AdministradorServicosMock>();                 
+                    services.AddScoped<IAdministradorServicos, AdministradorServicosMock>();
                 });
 
             });
@@ -48,6 +48,9 @@ namespace Test.Helpers
         {
             Setup.client.Dispose();
         }
-        
+
     }
-}
+}// rC7xZa$F=7.Sr=3
+
+
+

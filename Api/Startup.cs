@@ -19,6 +19,8 @@ using minimal_api.Dominio.ModelViews;
 using minimal_api.Dominio.Servicos;
 using minimal_api.Dominio.Interfaces;
 using minimal_api.InfraEstrutura.DB;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
+using Microsoft.Extensions.Options;
 
 public class Startup
 {
@@ -50,6 +52,15 @@ public class Startup
 
              };
          });
+        services.AddCors(options=>
+        {
+            options.AddDefaultPolicy( builder=>
+            {        
+            builder.AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
+            });
+        });
         services.AddAuthorization();
 
         services.AddScoped<IAdministradorServicos, AdministradorServicos>();
@@ -104,7 +115,8 @@ public class Startup
 
         app.UseAuthentication();
         app.UseAuthorization();
-
+        
+        app.UseCors();
 
         app.UseEndpoints(endpoints =>
         {
